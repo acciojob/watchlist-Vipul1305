@@ -48,9 +48,20 @@ public class MovieRepository {
         return list;
     }
     public void deleteDirectorByName(String name){
+        List<String> movie = listDB.get(name);
+        for (String m: movie){
+            movieDB.remove(m);
+        }
         directorDB.remove(name);
+        listDB.remove(name);
     }
     public void deleteAllDirectors(){
+        for (String directorName: listDB.keySet()){
+            for (String movie: listDB.get(directorName)){
+                movieDB.remove(movie);
+            }
+        }
         directorDB.clear();
+        listDB.clear();
     }
 }
